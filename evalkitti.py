@@ -57,13 +57,9 @@ def main():
         image = image.unsqueeze(1)
         mask_gt = sample['mask']
         mask_gt = mask_gt.unsqueeze(1)
-
-        # recon_combined, masks, slots, z_q_x, latents = model(image)
+        
         _, masks, _, _, _, _ = model(image)
         masks = masks.detach().cpu()
-        # print(image.shape, recon_combined.shape)
-        
-        # print(masks.shape, mask_gt.shape)
 
         for i in range(8):
             gt_msk = mask_gt[i]
@@ -83,16 +79,6 @@ def main():
             gt_msk = gt_msk[:,1:]
             ari = ARI(gt_msk.unsqueeze(0), pred_msk.unsqueeze(0))
 
-            # idx = gt_msk>0
-            # gt_msk = gt_msk[idx]
-
-            # if len(gt_msk) == 0:
-            #     continue 
-            # pred_msk = pred_msk[:,idx]
-            # pred_msk = pred_msk.permute(1,0)
-            # gt_msk = F.one_hot(gt_msk)
-            # gt_msk = gt_msk[:,1:]
-            # ari = ARI(gt_msk.unsqueeze(0), pred_msk.unsqueeze(0))
             ARIs.append(ari)
         print(sum(ARIs) / len(ARIs))
         del image, masks, mask_gt

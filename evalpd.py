@@ -5,8 +5,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from dataset.datasetPDEval import PDDataset
 from models.utils import adjusted_rand_index as ARI 
+import torch
 
-from models.model import *
+from models.model import SlotAttentionAutoEncoder
 
 parser = argparse.ArgumentParser()
 
@@ -16,6 +17,8 @@ parser.add_argument('--test_path', default = '/data/test_video/', type = str, he
 parser.add_argument('--num_slots', default=45, type=int, help='Number of slots in Slot Attention.')
 parser.add_argument('--hid_dim', default=128, type=int, help='hidden dimension size')
 parser.add_argument('--num_tokens', default=128, type=int, help='Number of tokens for VQ-VAE.')
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 resolution = (480, 968)
 
@@ -64,12 +67,9 @@ def main():
         gt_msk = gt_msk[:,1:]
         ari = ARI(gt_msk.unsqueeze(0), pred_msk.unsqueeze(0))
         ARIs.append(ari)
-        del image, mask_gt, masks
+        del image, mask_gt, masks, recon_combined, slots, latents
         print(sum(ARIs) / len(ARIs))
     print('final ARI:',sum(ARIs) / len(ARIs))
 
 if __name__ == '__main__':
     main()
-
-# GT Moving: 60.51
-# EST: 55.03 (350)

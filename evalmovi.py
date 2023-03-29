@@ -51,8 +51,7 @@ def main():
         mask_gt = sample['mask'].to(device)
         mask_gt = mask_gt.permute(0,1,4,2,3).squeeze(2)
         mask_gt = F.interpolate(mask_gt.float(), (32,32),mode='nearest').long()
-    
-        # recon_combined, masks, slots, z_q_x, latents = model(image)
+
         recon_combined, masks, slots, _, _, latents = model(image)
         K = image.shape[0]
         for i in range(K):
@@ -72,25 +71,7 @@ def main():
             gt_msk = gt_msk[:,1:]
             ari = ARI(gt_msk.unsqueeze(0), pred_msk.unsqueeze(0))
             ARIs.append(ari)
-        del image, mask_gt, masks
-        # gt_msk = mask_gt[0]
-        # pred_msk = masks[0]
-        # gt_msk = gt_msk.view(24,-1)
-        # pred_msk = pred_msk.view(24,opt.num_slots,-1).permute(1,0,2)
-
-        # gt_msk = gt_msk.view(-1)
-        # pred_msk = pred_msk.reshape(opt.num_slots,-1)
-
-        # pred_msk = pred_msk.permute(1,0)
-        # gt_msk = F.one_hot(gt_msk)
-        # _,n_cat = gt_msk.shape 
-        # if n_cat <= 2:
-        #     continue
-        # gt_msk = gt_msk[:,1:]
-        # ari = ARI(gt_msk.unsqueeze(0), pred_msk.unsqueeze(0))
-        # ARIs.append(ari)
-        # del image, mask_gt, masks
-        # print(sum(ARIs) / len(ARIs))
+        del image, mask_gt, masks, recon_combined, slots, latents
     print(model_path, 'final ARI:',sum(ARIs) / len(ARIs))
 
 if __name__ == '__main__':
