@@ -60,7 +60,8 @@ KITTI dataset can be downloaded from the [offcial website](https://www.cvlibs.ne
 
 
 ### Dataset structure
-####MOVI
+**MOVI**  
+
 ```
 root 
 	- train
@@ -77,7 +78,7 @@ root
 ```
 
 
-####TRI-PD
+**TRI-PD**  
 
 ```
 root 
@@ -101,7 +102,8 @@ root
    - ...
 ```
 
-####KITTI
+**KITTI**  
+
 ```
 root
 	- 2011_09_26_drive_0001_sync
