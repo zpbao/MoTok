@@ -49,7 +49,6 @@ def main():
         mask_gt = sample['mask'].to(device)
         mask_gt = F.interpolate(mask_gt.float(), (120,242),mode='nearest').long()
     
-        # recon_combined, masks, slots, z_q_x, latents = model(image)
         recon_combined, masks, slots, _, _, latents = model(image)
         gt_msk = mask_gt[0]
         pred_msk = masks[0]
