@@ -41,7 +41,7 @@ class PDDataset(Dataset):
         elif supervision == 'all':
             self.annotation = 'ari_masks'
         elif supervision == 'est':
-            self.annotation = 'raft_seg'
+            self.annotation = 'est_masks'
         else:
             raise ValueError("Need to choose from moving masks, all masks, or estimated masks. Or revise the code for customized setting.")
         self.real_files = []
