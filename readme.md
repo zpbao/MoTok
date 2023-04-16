@@ -26,9 +26,8 @@ Python 3 dependencies:
 ### MOVi-E
 MOVi-E dataset can be accessed from [the official repo](https://github.com/google-research/kubric/tree/main/challenges/movi). After downloading, we save the data to npy files for training. See ```process_movi.py``` for details.
 
-### TRI-PD
-**Depth, semantic masks, bounding boxes will be uploaded in late April (expected)**  
-PD datasets (RGB, flow, depth) and additional annotations (moving object masks; dynamic object masks): [[TRI-PD dataset]](https://drive.google.com/drive/folders/1q5AjqhoivJb67h9MZCgUtqb4CooDrZhC?usp=sharing)
+### TRI-PD 
+PD datasets (RGB, flow, depth, semantic masks) and additional annotations (moving object masks; dynamic object masks): [[TRI-PD dataset]](https://drive.google.com/drive/folders/1q5AjqhoivJb67h9MZCgUtqb4CooDrZhC?usp=sharing). The "simplified" folder contains flow (both forward and backward), rgb, and motion masks. The "full" folder contains additional RGB, depth, flow, motion masks, and semantic masks.
 
 Raw PD dataset (which contains RGB, semantic segmentation, instance segmentation, optical flow, depth, camera colibrations, 2D/3D bounding boxes, etc.) is connected to TRI's [Vidar](https://github.com/TRI-ML/vidar) project. Leave a message in the issues or contact `zbao@andrew.cmu.edu` for the annotations other than the simplified ones.
 
